@@ -3,7 +3,7 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import { readDeck, createCard } from '../utils/api';
 import CardForm from './CardForm';
 
-function AddCard({deck, newCardData, initialFormState, setDeck, setNewCardData },) {
+function AddCard({deck, newCardData, initialFormState2, setDeck, setNewCardData },) {
   const mountedRef = useRef(false);
 
   const history = useHistory();
@@ -35,9 +35,8 @@ function AddCard({deck, newCardData, initialFormState, setDeck, setNewCardData }
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    await createCard(deckId, newCardData);
-    setNewCardData(initialFormState);
-    history.go(0);
+    const response = await createCard(deckId, newCardData);
+    history.push(`/decks/${response.deckId}`);
   };
   return (
     <React.Fragment>
